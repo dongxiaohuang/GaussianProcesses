@@ -33,7 +33,7 @@ def multivariateGaussianDraw(mean, cov):
     sample = np.zeros((mean.shape[0], )) # This is only a placeholder
     # Task 2:
     # TODO: Implement a draw from a multivariate Gaussian here
-
+    sample = np.ramdom.multivariate_normal(mean, cov)
     # Return drawn sample
     return sample
 

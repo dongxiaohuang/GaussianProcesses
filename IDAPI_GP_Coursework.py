@@ -89,7 +89,7 @@ class RadialBasisFunction():
         # TODO: Implement the covariance matrix here
         for p in range(n):
             for q in range(n):
-                covMat[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*(np.linalg.norm(X[p],X[q])**2))
+                covMat[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*(np.linalg.norm(X[p],X[q]).all()**2))
 
         # If additive Gaussian noise is provided, this adds the sigma2_n along
         # the main diagonal. So the covariance matrix will be for [y y*]. If

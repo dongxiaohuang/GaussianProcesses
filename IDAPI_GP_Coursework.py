@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize
-
+from math import exp
 
 # ##############################################################################
 # LoadData takes the file location for the yacht_hydrodynamics.data and returns
@@ -31,9 +31,11 @@ def loadData(df):
 # ##############################################################################
 def multivariateGaussianDraw(mean, cov):
     sample = np.zeros((mean.shape[0], )) # This is only a placeholder
-    # Task 2:
+    # Task 1:
     # TODO: Implement a draw from a multivariate Gaussian here
-    sample = np.ramdom.multivariate_normal(mean, cov)
+    A = sqrtm(cov)
+    x = np.random.normal(0, 1, 1000)
+    sample = np.dot(A, x) + mean
     # Return drawn sample
     return sample
 
@@ -84,10 +86,11 @@ class RadialBasisFunction():
         n = X.shape[0]
         covMat = np.zeros((n,n))
 
-        # Task 1:
+        # Task 2:
         # TODO: Implement the covariance matrix here
-
-
+        for p in range(n):
+            for q in range(n):
+                cov[p][q] = sigma2_f*exp(-1.0/(2*length_scale) **(X[p]-X[q]))
 
         # If additive Gaussian noise is provided, this adds the sigma2_n along
         # the main diagonal. So the covariance matrix will be for [y y*]. If

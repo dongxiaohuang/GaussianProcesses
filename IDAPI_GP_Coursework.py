@@ -163,9 +163,9 @@ class GaussianProcessRegression():
         # Task 5:
         # TODO: calculate the gradients of the negative log marginal likelihood
         # wrt. the hyperparameters
-        grad_ln_sigma_f =
-        grad_ln_length_scale =
-        grad_ln_sigma_n =
+        # grad_ln_sigma_f
+        # grad_ln_length_scale =
+        # grad_ln_sigma_n =
 
         # Combine gradients
         gradients = np.array([grad_ln_sigma_f, grad_ln_length_scale, grad_ln_sigma_n])

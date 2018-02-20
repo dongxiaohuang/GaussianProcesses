@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.optimize import minimize
-from math import exp
 
 # ##############################################################################
 # LoadData takes the file location for the yacht_hydrodynamics.data and returns
@@ -90,7 +89,7 @@ class RadialBasisFunction():
         # TODO: Implement the covariance matrix here
         for p in range(n):
             for q in range(n):
-                cov[p][q] = sigma2_f*exp(-1.0/(2*length_scale) **(X[p]-X[q]))
+                cov[p][q] = sigma2_f*np.exp(-1.0/(2*length_scale) **(X[p]-X[q]))
 
         # If additive Gaussian noise is provided, this adds the sigma2_n along
         # the main diagonal. So the covariance matrix will be for [y y*]. If
@@ -122,17 +121,18 @@ class GaussianProcessRegression():
         self.K = K
         return K
 
-    # ##########################################################################
+    # ############################    cov_fa = covMatrix(Xa)##############################################
     # Computes the posterior mean of the Gaussian process regression and the
     # covariance for a set of test points.
     # NOTE: This should return predictions using the 'clean' (not noisy) covariance
-    # ##########################################################################
+    # ############################    cov_fa = covMatrix(Xa)##############################################
     def predict(self, Xa):
         mean_fa = np.zeros((Xa.shape[0], 1))
         cov_fa = np.zeros((Xa.shape[0], Xa.shape[0]))
         # Task 3:
         # TODO: compute the mean and covariance of the prediction
-
+        mean_fa = Xa.sum(axis = 1)
+        cov_fa = covMatrix(Xa)
         # Return the mean and covariance
         return mean_fa, cov_fa
 
@@ -147,7 +147,7 @@ class GaussianProcessRegression():
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
-
+        mll = .5*self.y.T/K*self.y + .5*log(K)+n/2*log(2*pi)
         # Return mll
         return mll
 

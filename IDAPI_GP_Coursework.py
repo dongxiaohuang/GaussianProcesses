@@ -180,7 +180,7 @@ class GaussianProcessRegression():
         mse = 0
         # Task 6:
         # TODO: Implement the MSE between ya and fbar
-        mse = np.prod((ya - fbar0)**2)/(np.prod(ya.shape)-1)
+        mse = ((ya - fbar0)**2).sum/(len(ya)-1)
         # Return mse
         return mse
 

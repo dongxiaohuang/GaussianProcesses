@@ -33,8 +33,8 @@ def multivariateGaussianDraw(mean, cov):
     # Task 1:
     # TODO: Implement a draw from a multivariate Gaussian here
     A = np.linalg.cholesky(cov)
-    x = np.random.normal(mean.shape[0],)
-    sample = np.dot(A, x) + mean.T
+    x = np.random.randn(mean.shape[0],)
+    sample = np.dot(A, x.T) + mean
     # Return drawn sample
     return sample
 
@@ -89,7 +89,7 @@ class RadialBasisFunction():
         # TODO: Implement the covariance matrix here
         for p in range(n):
             for q in range(n):
-                covMat[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*(np.linalg.norm(X[p],X[q])**2)
+                covMat[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*(np.linalg.norm(X[p],X[q])**2))
 
         # If additive Gaussian noise is provided, this adds the sigma2_n along
         # the main diagonal. So the covariance matrix will be for [y y*]. If

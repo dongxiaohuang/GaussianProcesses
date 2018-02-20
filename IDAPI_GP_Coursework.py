@@ -32,7 +32,7 @@ def multivariateGaussianDraw(mean, cov):
     sample = np.zeros((mean.shape[0], )) # This is only a placeholder
     # Task 1:
     # TODO: Implement a draw from a multivariate Gaussian here
-    A = sqrtm(cov)
+    A = np.sqrtm(cov)
     x = np.random.normal(0, 1, 1000)
     sample = np.dot(A, x) + mean
     # Return drawn sample

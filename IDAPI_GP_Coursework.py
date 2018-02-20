@@ -178,9 +178,12 @@ class GaussianProcessRegression():
     # ##########################################################################
     def mse(self, ya, fbar):
         mse = 0
-        # Task 6:
+        # Task 7:
         # TODO: Implement the MSE between ya and fbar
-        mse = ((ya - fbar0)**2).sum/(len(ya)-1)
+        n = ya.shape[0]
+        for i in range(n):
+            mse = (float)((ya[i]-fa[i])**2)).sum()
+        mse /= n;
         # Return mse
         return mse
 

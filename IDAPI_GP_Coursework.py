@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize
-
+import math
 # ##############################################################################
 # LoadData takes the file location for the yacht_hydrodynamics.data and returns
 # the data set partitioned into a training set and a test set.
@@ -147,7 +147,7 @@ class GaussianProcessRegression():
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
-        mll = .5*self.y.T/K*self.y + .5*log(K)+n/2*log(2*pi)
+        mll = .5*self.y.T/K*self.y + .5*math.log(K)+n/2*math.log(2*pi)
         # Return mll
         return mll
 
@@ -163,7 +163,9 @@ class GaussianProcessRegression():
         # Task 5:
         # TODO: calculate the gradients of the negative log marginal likelihood
         # wrt. the hyperparameters
-
+        grad_ln_sigma_f =
+        grad_ln_length_scale =
+        grad_ln_sigma_n =
 
         # Combine gradients
         gradients = np.array([grad_ln_sigma_f, grad_ln_length_scale, grad_ln_sigma_n])
@@ -176,9 +178,9 @@ class GaussianProcessRegression():
     # ##########################################################################
     def mse(self, ya, fbar):
         mse = 0
-        # Task 7:
+        # Task 6:
         # TODO: Implement the MSE between ya and fbar
-
+        mse = np.prod((ya - fbar0)**2)/(len(ya)-1)
         # Return mse
         return mse
 

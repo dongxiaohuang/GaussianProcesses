@@ -130,17 +130,22 @@ class GaussianProcessRegression():
         cov_fa = np.zeros((Xa.shape[0], Xa.shape[0]))
         # Task 3:
         # TODO: compute the mean and covariance of the prediction
-        print Xa
-        mean_fa = (Xa.sum(axis = 1)/len(Xa[0])).reshape(mean_fa.shape)
-        for i in range(Xa.shape[0]):
-            for j in range(Xa.shape[0]):
-                E_ij = 0;
-                for p in Xa[i]:
-                    for q in Xa[j]:
-                        E_ij += p*q
-                E_ij /= len(Xa[i])*len(Xa[j])
-                cov_fa[i][j] = E_ij - mean_fa[i]*mean_fa[j]
+        m_X = 0
+        n = self.K.shape[0]
+        n = Xa.shape[0]
+        K_Xa_Xa = np.zeros((n,n))
+        K_Xa_X = np.zeros((n,n))
+        K_X_Xa = np.zeros((n,n))
 
+        for p in range(self.n):
+            for q in range(self.n):
+                K_X_Xa[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*((np.linalg.norm(self.X[p]-Xa[q]))**2))
+                K_Xa_Xa[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*((np.linalg.norm(Xa[p]-Xa[q]))**2))
+                K_Xa_X[p][q] = self.sigma2_f*np.exp(-1.0/(2*self.length_scale*self.length_scale)*((np.linalg.norm(Xa[p]-self.X[q]))**2))
+        mean_fa = m_X + K_X_Xa.dot(self.K).dot(self.y)
+        cov_fa = K_Xa_Xa - K_X_Xa.dot(
+        np.linalg.inv(self.K) .dot(K_Xa_X)
+        )
         # Return the mean and covariance
         return mean_fa, cov_fa
 

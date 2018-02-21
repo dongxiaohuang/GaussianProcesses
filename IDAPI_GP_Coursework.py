@@ -210,7 +210,8 @@ class GaussianProcessRegression():
         pi = np.pi
         #TODO: signma2_xa
         for i in range(n):
-            msll += .5 * np.log(2*pi*cov[i]) + ((ya[i] - fbar[i])**2) / (2* cov[i])
+            sigma2_xi = cov[i][i] + k.self.sigma2_n
+            msll += .5 * np.log(2*pi*sigma2_xi) + 0.5*((ya[i] - fbar[i])**2) / (sigma2_xi)
         msll /= n
         return msll
 
@@ -225,10 +226,15 @@ class GaussianProcessRegression():
 if __name__ == '__main__':
 
     np.random.seed(42)
-    params = (0.5*math.log(1.0), math.log(0.1), 0.5* math.log(0.5))
-    gpg = GaussianProcessRegression().optimize()
+    # params = (0.5*math.log(1.0), math.log(0.1), 0.5* math.log(0.5))
+    # gpg = GaussianProcessRegression().optimize()
     ##########################
     # You can put your tests here - marking
     # will be based on importing this code and calling
     # specific functions with custom input.
     ##########################
+    X_train, y_train, X_test, y_test = loadData("yacht_hydrodynamics.data")
+    RBF = RadialBasisFunction([0.0, np.log(.1), .5*np.log(0.5)])
+    gpr = GaussianProcessRegression(X_train, y_train, RBF)
+
+    gpr.predict(X_test)

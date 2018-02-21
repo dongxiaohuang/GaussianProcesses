@@ -196,13 +196,13 @@ class GaussianProcessRegression():
         mse = 0
         # Task 7:
         # TODO: Implement the MSE between ya and fbar
-        print ya[:5]
+        print ya.shape
         print "---------"
-        print fbar[:5]
+        print fbar.shape
 
         for i in range(self.n):
             mse += ((ya[i]-fbar[i])**2)
-        mse /= self.n;
+        mse /= (float)self.n;
         # Return mse
         return mse
 

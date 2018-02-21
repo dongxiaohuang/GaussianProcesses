@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.optimize import minimize
-import math
 # ##############################################################################
 # LoadData takes the file location for the yacht_hydrodynamics.data and returns
 # the data set partitioned into a training set and a test set.
@@ -153,17 +152,14 @@ class GaussianProcessRegression():
         if params is not None:
             K = self.KMat(self.X, params)
             #TODO: add
-        else:
-            K = self.K
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
-        # if not K:
-        #     K = self.K
-        det_K = np.linalg.det(K)
-        sub1 = 0.5*self.y.T.dot(np.linalg.inv(K))
+
+        det_K = np.linalg.det(self.K)
+        sub1 = 0.5*self.y.T.dot(np.linalg.inv(self.K))
         sub2 = sub1.dot(self.y)
-        mll = sub2 + .5*math.log(det_K)+self.n/2*math.log(2*math.pi)
+        mll = sub2 + .5*np.log(det_K)+self.n/2*np.log(2*np.pi)
         # Return mll
         return mll
 
@@ -210,7 +206,12 @@ class GaussianProcessRegression():
         msll = 0
         # Task 7:
         # TODO: Implement MSLL of the prediction fbar, cov given the target ya
-        
+        n = len(ya)
+        pi = math.pi
+        #TODO: signma2_xa
+        for i in range(n):
+            msll += .5 * math.log(2*pi*cov[i]) + ((ya[i] - fbar[i])**2) / (2* cov[i])
+        msll /= n
         return msll
 
     # ##########################################################################
@@ -224,7 +225,8 @@ class GaussianProcessRegression():
 if __name__ == '__main__':
 
     np.random.seed(42)
-
+    params = (0.5*math.log(1.0), math.log(0.1), 0.5* math.log(0.5))
+    gpg = GaussianProcessRegression().optimize()
     ##########################
     # You can put your tests here - marking
     # will be based on importing this code and calling

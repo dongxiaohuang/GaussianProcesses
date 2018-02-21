@@ -199,10 +199,10 @@ class GaussianProcessRegression():
         print ya.shape
         print "---------"
         print fbar.shape
-
-        for i in range(len[ya]):
+        n = len(ya)
+        for i in range(n):
             mse += ((ya[i]-fbar[i])**2)
-        mse /= self.n;
+        mse /= n;
         # Return mse
         return mse
 

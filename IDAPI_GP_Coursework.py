@@ -132,8 +132,15 @@ class GaussianProcessRegression():
         # Task 3:
         # TODO: compute the mean and covariance of the prediction
         mean_fa = Xa.sum(axis = 1)/len(Xa[0])
-        rbf = RadialBasisFunction()
-        cov_fa = rbf.covMatrix(Xa)
+        for i in range(Xa.shape[0]):
+            for j in range(Xa.shape[0]):
+                E_ij = 0;
+                for p in Xa[i]:
+                    for q in Xa[j]:
+                        E_ij += p*q
+                E_ij /= len(Xa[i])*len(Xa[j])
+                cov_fa[i][j] = E_ij - mean_fa[i]*mean_fa[j]
+
         # Return the mean and covariance
         return mean_fa, cov_fa
 

@@ -186,7 +186,11 @@ class GaussianProcessRegression():
         (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*self.k.sigma2_n*np.identity(n))
         )
 
-        # grad_ln_sigma_n =
+        for p in range(n):
+            for q in range(n):
+                par_K_lnl[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(self.X[p]-self.X[q]))**2))\
+                *((np.linalg.norm(self.X[p]-self.X[q]))**2)\
+                *1.0/ (self.k.length_scale**2)
 
         # Combine gradients
         gradients = np.array([grad_ln_sigma_f, grad_ln_length_scale, grad_ln_sigma_n])

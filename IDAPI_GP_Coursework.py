@@ -131,7 +131,8 @@ class GaussianProcessRegression():
         cov_fa = np.zeros((Xa.shape[0], Xa.shape[0]))
         # Task 3:
         # TODO: compute the mean and covariance of the prediction
-        mean_fa = Xa.sum(axis = 1)/len(Xa[0])
+        print Xa
+        mean_fa = Xa.sum(axis = 1)/len(Xa[0]).reshape(mean_fa.shape)
         for i in range(Xa.shape[0]):
             for j in range(Xa.shape[0]):
                 E_ij = 0;

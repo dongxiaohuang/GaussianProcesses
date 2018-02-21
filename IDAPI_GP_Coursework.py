@@ -175,7 +175,7 @@ class GaussianProcessRegression():
         # Task 5:
         # TODO: calculate the gradients of the negative log marginal likelihood
         # wrt. the hyperparameters
-        alph = np.linalg.inv)(self.K).dot(self.y)
+        alph = np.linalg.inv(self.K).dot(self.y)
         if self.k.sigma2_n is not None:
             K_wo_noise = self.K - self.k.sigma2_n*np.identity(n)
         grad_ln_sigma_f = 0.5* np.trace(

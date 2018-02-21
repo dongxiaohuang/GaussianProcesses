@@ -142,7 +142,7 @@ class GaussianProcessRegression():
                 K_X_Xa[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(self.X[p]-Xa[q]))**2))
                 K_Xa_Xa[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(Xa[p]-Xa[q]))**2))
                 K_Xa_X[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(Xa[p]-self.X[q]))**2))
-        mean_fa = m_X + K_X_Xa.dot(self.K).dot(self.y)
+        mean_fa = m_X + K_X_Xa.dot(np.linalg.inv(self.K)).dot(self.y)
         cov_fa = K_Xa_Xa - K_X_Xa.dot(
         np.linalg.inv(self.K) .dot(K_Xa_X)
         )

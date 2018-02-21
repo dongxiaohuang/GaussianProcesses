@@ -152,12 +152,13 @@ class GaussianProcessRegression():
     def logMarginalLikelihood(self, params=None):
         if params is not None:
             K = self.KMat(self.X, params)
-
+        else:
+            K = self.K
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
-        if not K:
-            K = self.K
+        # if not K:
+        #     K = self.K
         det_K = np.linalg.det(K)
         sub1 = 0.5*self.y.T.dot(np.linalg.inv(K))
         sub2 = sub1.dot(self.y)

@@ -202,7 +202,7 @@ class GaussianProcessRegression():
 
         for i in range(self.n):
             mse += ((ya[i]-fbar[i])**2)
-        mse /= (float)self.n;
+        mse /= self.n;
         # Return mse
         return mse
 

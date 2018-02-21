@@ -131,8 +131,9 @@ class GaussianProcessRegression():
         cov_fa = np.zeros((Xa.shape[0], Xa.shape[0]))
         # Task 3:
         # TODO: compute the mean and covariance of the prediction
-        mean_fa = Xa.sum(axis = 1)
-        cov_fa = covMatrix(Xa)
+        mean_fa = Xa.sum(axis = 1)/len(Xa[0])
+        rbf = RadialBasisFunction()
+        cov_fa = rbf.covMatrix(Xa)
         # Return the mean and covariance
         return mean_fa, cov_fa
 

@@ -177,6 +177,7 @@ class GaussianProcessRegression():
         # wrt. the hyperparameters
         n = (self.K).shape[0]
         alph = np.linalg.inv(self.K).dot(self.y)
+        K_wo_noise = self.K
         if self.k.sigma2_n is not None:
             K_wo_noise = self.K - self.k.sigma2_n*np.identity(n)
         grad_ln_sigma_f = 0.5* np.trace(

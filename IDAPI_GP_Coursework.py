@@ -159,7 +159,7 @@ class GaussianProcessRegression():
         det_K = np.linalg.det(self.K)
         sub1 = 0.5*self.y.T.dot(np.linalg.inv(self.K))
         sub2 = sub1.dot(self.y)
-        mll = sub2 + .5*np.log(det_K)+self.n/2*np.log(2*np.pi)
+        mll = sub2 + .5*np.log(det_K)+.5*self.n*np.log(2*np.pi)
         # Return mll
         return mll
 
@@ -207,10 +207,10 @@ class GaussianProcessRegression():
         # Task 7:
         # TODO: Implement MSLL of the prediction fbar, cov given the target ya
         n = len(ya)
-        pi = math.pi
+        pi = np.pi
         #TODO: signma2_xa
         for i in range(n):
-            msll += .5 * math.log(2*pi*cov[i]) + ((ya[i] - fbar[i])**2) / (2* cov[i])
+            msll += .5 * np.log(2*pi*cov[i]) + ((ya[i] - fbar[i])**2) / (2* cov[i])
         msll /= n
         return msll
 

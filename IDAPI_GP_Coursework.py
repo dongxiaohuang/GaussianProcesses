@@ -196,7 +196,7 @@ class GaussianProcessRegression():
         mse = 0
         # Task 7:
         # TODO: Implement the MSE between ya and fbar
-        print [:5]
+        print ya[:5]
         print "---------"
         print fbar[:5]
 

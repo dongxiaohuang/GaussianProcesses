@@ -210,7 +210,7 @@ class GaussianProcessRegression():
         pi = np.pi
         #TODO: signma2_xa
         for i in range(n):
-            sigma2_xi = cov[i][i] + k.self.sigma2_n
+            sigma2_xi = cov[i][i] + self.k.sigma2_n
             msll += .5 * np.log(2*pi*sigma2_xi) + 0.5*((ya[i] - fbar[i])**2) / (sigma2_xi)
         msll /= n
         return msll

@@ -196,9 +196,6 @@ class GaussianProcessRegression():
         mse = 0
         # Task 7:
         # TODO: Implement the MSE between ya and fbar
-        print ya.shape
-        print "---------"
-        print fbar.shape
         n = len(ya)
         for i in range(n):
             mse += ((ya[i]-fbar[i])**2)
@@ -213,7 +210,7 @@ class GaussianProcessRegression():
         msll = 0
         # Task 7:
         # TODO: Implement MSLL of the prediction fbar, cov given the target ya
-
+        
         return msll
 
     # ##########################################################################

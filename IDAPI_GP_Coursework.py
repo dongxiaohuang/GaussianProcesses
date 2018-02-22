@@ -160,14 +160,20 @@ class GaussianProcessRegression():
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
+        #compute log(|K|)
+        L = np.linalg.cholesky(self.K)
+        logK = 0
+        for i in range(len(L)):
+            logK += 2*np.log(L[i][i])
 
-        det_K = np.linalg.det(self.K)
+
         sub1 = 0.5*self.y.T.dot(np.linalg.inv(self.K))
         sub2 = sub1.dot(self.y)
-        mll = sub2 + .5*np.log(det_K)+.5*self.n*np.log(2*np.pi)
-        # Return mll
+        mll = sub2 + .5*logK+.5*self.n*np.log(2*np.pi)
+        # det_K = np.linalg.det(self.K)
+        # mll = sub2 + .5*np.log(det_K)+.5*self.n*np.log(2*np.pi)
         return mll
-
+        # appendix A.4
     # ##########################################################################
     # Computes the gradients of the negative log marginal likelihood wrt each
     # hyperparameter.
@@ -188,10 +194,6 @@ class GaussianProcessRegression():
         grad_ln_sigma_f = -0.5* np.trace(
         (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*K_wo_noise)
         )
-        # K_wo_noise = self.K - self.k.sigma2_n*np.identity(n)
-        # grad_ln_sigma_f = -0.5* np.trace(
-        # (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*K_wo_noise)
-        # )
         grad_ln_sigma_n =-0.5* np.trace(
         (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*self.k.sigma2_n*np.identity(n))
         )

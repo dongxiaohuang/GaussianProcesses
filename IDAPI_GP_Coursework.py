@@ -188,13 +188,13 @@ class GaussianProcessRegression():
         grad_ln_sigma_f = 0.5* np.trace(
         (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*K_wo_noise)
         )
-        grad_ln_length_scale =0.5* np.trace(
+        grad_ln_sigma_n =0.5* np.trace(
         (alph.dot(alph.T) - np.linalg.inv(self.K)).dot(2*self.k.sigma2_n*np.identity(n))
         )
-        par_K_lnl = np.zeros((n,n))
+        grad_ln_length_scale = np.zeros((n,n))
         for p in range(n):
             for q in range(n):
-                par_K_lnl[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(self.X[p]-self.X[q]))**2))\
+                grad_ln_length_scale[p][q] = self.k.sigma2_f*np.exp(-1.0/(2*self.k.length_scale*self.k.length_scale)*((np.linalg.norm(self.X[p]-self.X[q]))**2))\
                 *((np.linalg.norm(self.X[p]-self.X[q]))**2)\
                 *1.0/ (self.k.length_scale**2)
 

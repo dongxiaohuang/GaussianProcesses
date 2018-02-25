@@ -156,24 +156,20 @@ class GaussianProcessRegression():
     def logMarginalLikelihood(self, params=None):
         if params is not None:
             K = self.KMat(self.X, params)
-            #TODO: add
         mll = 0
         # Task 4:
         # TODO: Calculate the log marginal likelihood ( mll ) of self.y
         #compute log(|K|)
         L = np.linalg.cholesky(self.K)
         logK = 0
+        # according to appendix A.4 it is better way to compute log(|K|)
         for i in range(len(L)):
             logK += 2*np.log(L[i][i])
-
-
         sub1 = 0.5*self.y.T.dot(np.linalg.inv(self.K))
         sub2 = sub1.dot(self.y)
         mll = sub2 + .5*logK+.5*self.n*np.log(2*np.pi)
-        # det_K = np.linalg.det(self.K)
-        # mll = sub2 + .5*np.log(det_K)+.5*self.n*np.log(2*np.pi)
         return mll
-        # appendix A.4
+
     # ##########################################################################
     # Computes the gradients of the negative log marginal likelihood wrt each
     # hyperparameter.
@@ -263,5 +259,4 @@ if __name__ == '__main__':
     X_train, y_train, X_test, y_test = loadData("yacht_hydrodynamics.data")
     RBF = RadialBasisFunction([0.0, np.log(.1), .5*np.log(0.5)])
     gpr = GaussianProcessRegression(X_train, y_train, RBF)
-
     gpr.predict(X_test)
